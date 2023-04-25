@@ -1,0 +1,144 @@
+body{
+	height: 100vh;
+}
+
+nav{
+	font-size: 1.2em;
+	
+}
+	.navbar-brand {
+		padding: 0;
+	}
+
+	.navbar-nav .nav-link {
+		padding-top: 0;
+		padding-bottom: 0;
+		height: 50px;
+		line-height: 50px;
+	}
+
+	nav.navbar{
+		margin-bottom: 0;
+	}
+	
+	#logo{
+		font-size: 1.5em;
+	}
+
+form.user_form {
+	padding: 1%;
+	width: 25%;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-49%, -49%);
+
+	border: 3px solid black;
+	border-radius: 5%;
+}
+
+form.puzzle_form {
+	margin-top: 2%;
+	padding: 1%;
+	width: 50%;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-49%, -49%);
+
+	border: 3px solid black;
+}
+
+	h1#logo a{
+		text-decoration: none;
+		color: black;
+		font-weight: bolder;
+	}
+
+main, div#problem_info{
+	padding: 1%;
+}
+
+main#index{
+	width: 90%;
+	margin: auto;
+}
+
+div#wrapper{
+	height: 88vh;
+}
+	div#code_wrapper{
+		padding: 1%;
+		height: 50%;
+		background-color: #272822;
+	}
+		div#code_area {
+			height: 80%;
+		}
+
+	form#user_input {
+		margin: 2% 0%;
+		width: 100%;
+	}
+
+	div#console{
+		padding: 1%;
+		margin-top: 1%;
+		height: 39.9%;
+	}
+
+	div#problem_info ul{
+		margin-bottom: 5%;
+	}
+
+	div#test-cases{
+		padding: 2%;
+		width: 100%;
+	}
+			div#test-cases p{
+				font-weight: bold;
+				margin: 0;
+			}
+	
+form.puzzle_form{
+	height: 80vh;
+	overflow-y:scroll;
+}
+
+p.method{
+	color: #ee3b46;
+}
+
+span#method-name{
+	color: #4fd9ce;
+}
+
+p.pass{
+	color: green;
+	font-weight: bold;
+}
+
+p.fail{
+	color: red;
+	font-weight: bold;
+}
+
+div#posts{
+	overflow-y: auto;
+	max-height: 60vh;
+}
+	div.post_wrapper, p.post_content{
+		padding: 2%;
+	}
+		p.post_username, p.post_date{
+			margin: 0;
+			font-size: 1em;
+		}
+
+		textarea.post_content{
+			margin-top: 1%;
+			padding: 2%;
+			background-color: white;
+		}

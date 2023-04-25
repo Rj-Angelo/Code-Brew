@@ -1,0 +1,24 @@
+<form class="user_form" action="<%= sessions_path %>" method="post">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<div class="text-center">
+		<h1>Code Brew</h1>
+		<h2>Log in</h2>
+	</div>
+
+	<div class="form-outline mb-4">
+		<label class="form-label" for="email">Email</label>
+		<input type="email" id="email" name="email" class="form-control">
+	</div>
+
+	<div class="form-outline mb-4">
+		<label class="form-label" for="password">Password</label>
+		<input type="password" id="password" name="password" class="form-control">
+		<a href="">Forgot password?</a>
+	</div>
+
+	<input type="submit" class="btn btn-primary btn-block mb-4" value="Sign in">
+
+	<div class="text-center">
+		<p>Not a member? <a href="<%= new_user_path %>">Register</a></p>
+	</div>
+</form>

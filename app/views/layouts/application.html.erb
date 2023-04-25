@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Code Brew</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<%= javascript_importmap_tags %>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<%= include_gon(:init => true) %>
+    <%= Gon::Base.render_data({}) %>
+</head>
+<body>
+<% 	if current_user %>
+<nav class="navbar navbar-expand-md navbar-light bg-light .text-bg-light">
+	<div class="container-fluid">
+		<div class="collapse navbar-collapse">
+			<h1 id="logo" class="navbar-brand mt-2 mt-lg-0"><%= link_to "Code Brew", "/" %></h1>
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+					<%= link_to "Puzzles", "/", class: "nav-link" %>
+				</li>
+				<li class="nav-item">
+					<%= link_to "Brew Puzzle", brew_puzzles_path, class: "nav-link" %>
+				</li>
+			</ul>
+		</div>
+		<!-- Centered username -->
+		<ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+			<li id="user" class="nav-item ">
+				<%= link_to current_user.username, edit_user_path(current_user), class: "nav-link" %>
+			</li>
+			<li class="nav-item">
+				<%= button_to 'Log out', session_path(current_user), method: :delete, class: "btn btn-dark" %>
+			</li>
+		</ul>
+	</div>
+</nav>
+<%	end %>
+
+<%	if flash[:errors] %>
+	<div class="alert alert-danger text-center" role="alert">
+<%		if flash[:errors].is_a?(String) %>
+			<%= flash[:errors] %>
+<%		else
+			flash[:errors].each do |e|
+%>				<%= e %>
+<%			end
+		end
+%>	</div>
+<%	end
+%>	
+    <%= yield %>
+  </body>
+</html>

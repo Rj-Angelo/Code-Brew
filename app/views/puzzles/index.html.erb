@@ -1,0 +1,22 @@
+<main id="index">
+	<table class="table">
+		<thead>
+			<th scope="col">Puzzle</th>
+			<th scope="col" class="text-center">Difficulty</th>
+			<th scope="col" class="text-center">Creator</th>
+			<th scope="col" class="text-center">Completed</th>
+		</thead>
+		<tbody>
+		<% @puzzles.each do |puzzle| %>
+			<tr>
+				<td scope="row"><%= link_to puzzle.title, puzzle_path(puzzle.id) %>
+				<td class="text-center"><%= puzzle.difficulty %></td>
+				<td class="text-center"><%= puzzle.user.username %></td>
+				<td class="text-center">
+					<%= "&#10003;".html_safe if @user_puzzles[puzzle.id] %>
+				</td>
+			</tr>
+		<% end %>
+		</tbody>
+	</table>
+</main>

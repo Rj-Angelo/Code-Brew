@@ -1,0 +1,89 @@
+<%= javascript_include_tag "puzzles" %>
+<main id="puzzle" class="container-fluid">
+	<div class="row">
+		<div id="problem_info" class="col-md-4 border">
+			<div>
+				<ul class="nav nav-tabs">
+					<li class="nav-item"><a data-toggle="tab" href="#home" class="nav-link">Puzzle</a></li>
+					<li class="nav-item"><a data-toggle="tab" href="#discussion" class="nav-link">Discussion</a></li>
+					<li class="nav-item"><a data-toggle="tab" href="#solutions" class="nav-link">Solutions</a></li>
+				</ul>
+			</div>
+
+			<div class="tab-content">
+				<div id="home" class="tab-pane fade in active">
+					<h3><%= @puzzle.title %></h3>
+					<p><%= @puzzle.description %></p>
+				</div>
+				<div id="discussion" class="tab-pane fade">
+					<div>
+						<h3>Discussion for <%= @puzzle.title %></h3>
+						<%= form_with model:@new_post, url: puzzle_forums_path(@puzzle.id), id: "post" do |f|%>
+							<div class="form-group">
+								<%= f.text_area :content, placeholder: "Post a comment", class: "input-group", id:"new_post"%>
+								<p id="post_errors" class="fail"></p>
+							</div>
+							<div class="form-group">
+								<%= f.submit "Post", class: "btn btn-primary btn-block" %>
+							</div>
+						<% end %>
+					</div>
+					<div id="posts">
+					<%	if @puzzle_posts
+						@puzzle_posts.each do |post| %>
+						<div class="post_wrapper">
+							<p class="post_username"><%= post.user.username %></p>
+							<p class="post_date"><%= post.created_at.strftime("%m/%d/%Y")%></p>
+							<%= form_with model: @new_post, url: puzzle_forum_path(@puzzle.id,post.id), class: "edit_post", method: :patch do |f| %>
+								<%= f.text_area :content, value: post.content, class: "input-group post_content", disabled: true %>
+							<% end %>
+							<p class="fail"></p>
+							<%= link_to "edit", edit_puzzle_forum_path(@puzzle.id,post.id), class: "edit_post" %>
+							<%= link_to "delete", puzzle_forum_path(@puzzle.id,post.id),method: :delete, data: {turboost: :delete}, class: "delete_post" %>
+						</div>
+					<% end 
+					end %>
+					</div>
+				</div>
+				<div id="solutions" class="tab-pane fade">
+					<h3>Replays for completed <%= @puzzle.title %></h3>
+					<table class="table">
+						<thead>
+							<th scope="col">User Name</th>
+							<th scope="col">Replay</th>
+						</thead>
+						<tbody id="playbacks">
+						<% @completed_puzzles.each do |completed_puzzle| %>
+							<tr>
+								<td scope="row"><%= "#{completed_puzzle.user.username}" %></td>
+								<td><button type="button" class="btn btn-secondary" onClick="play(<%= completed_puzzle.id-1 %>)">Watch</button></td>
+							<tr>
+						<% end %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div id="wrapper" class="col-md-8">
+			<div id="code_wrapper">
+				<p class="method">def <span id="method-name"><%= @puzzle.function %></p>
+				<div id="code_area">
+				</div>
+				<p class="method" >end</p>
+			</div>
+			<form action="<%= validate_puzzle_path(@puzzle.id)%>" method="post" id="user_input">
+				<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+				<input type="hidden" id="code" name="code">
+				<input type="hidden" id="code" name="playback">
+				<input type="submit" class="btn btn-dark btn-block">
+			</form>
+			<div id="console" class="border">
+			<p id="console-errors"></p>
+			<% for i in 0..2 %>
+				<p id="case<%=i%>"><%=@puzzle.test_cases[i]%> should return <%=@puzzle.expected_outputs[i]%>
+				<p id="case<%=i%>-console"></p>			
+			<% end %>
+			</div>
+		</div>
+	</div>
+</main>

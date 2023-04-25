@@ -1,0 +1,22 @@
+<main id="index">
+	<%= link_to "Create new puzzle", new_puzzle_path, class:"btn btn-dark"%>
+	<table class="table">
+		<h3><%=current_user.username%>'s Puzzles</h3>
+		<table class="table">
+			<thead>
+				<th scope="col">Puzzle</th>
+				<th scope="col">Difficulty</th>
+				<th scope="col">Actions</th>
+			</thead>
+			<tbody>
+			<% @user_puzzles.each do |puzzle| %>
+				<tr>
+					<td scope="row"><%= link_to puzzle.title, puzzle_path(puzzle.id) %>
+					<td><%= puzzle.difficulty %></td>
+					<td><%= link_to "Edit", edit_puzzle_path(puzzle) %> || <%= link_to "Delete", puzzle_path(puzzle), data: { turbo: true, turbo_method: :delete }, method: :delete %></td>
+				</tr>
+			<% end %>
+			</tbody>
+		</table>
+	<table>
+</main>

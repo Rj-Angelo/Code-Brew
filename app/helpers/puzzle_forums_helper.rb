@@ -1,0 +1,2 @@
+module PuzzleForumsHelper
+end

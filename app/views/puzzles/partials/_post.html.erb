@@ -1,0 +1,10 @@
+<div class="post_wrapper">
+	<p class="post_username"><%= @post.user.username %></p>
+	<p class="post_date"><%= @post.created_at.strftime("%m/%d/%Y")%></p>
+	<%= form_with model: @new_post, url: edit_puzzle_forum_path(@puzzle.id,@post.id),method: :patch, class: "edit_post" do |f| %>
+		<%= f.text_area :content, value: @post.content, class: "input-group post_content", disabled: true %>
+	<% end %>
+	<p class="fail"></p>
+	<%= link_to "edit", edit_puzzle_forum_path(@puzzle.id,@post.id), class: "edit_post" %>
+	<%= link_to "delete", puzzle_forum_path(@puzzle.id,@post.id),method: :delete, data: {turboost: :delete}, class: "delete_post" %>
+</div>
